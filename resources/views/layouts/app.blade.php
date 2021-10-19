@@ -7,7 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Quiz Manager</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <livewire:styles>
 </head>
 <body class="bg-gray-100">
     <nav class="p-6 bg-white flex justify-between mb-6 shadow-md">
@@ -43,6 +42,5 @@
         </ul>
     </nav>
     @yield('content')
-    <livewire:scripts>
 </body>
 </html>
