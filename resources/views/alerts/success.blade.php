@@ -1,3 +1,4 @@
+{{-- Error alert notification --}}
 <div class="fixed inset-0" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">  
         <div class="flex items-center justify-center px-4 sm:px-0">
@@ -12,9 +13,11 @@
                         <p class="mr-2 text-base font-bold text-green-700">Success</p>
                     </div>
                     <div class="h-1 w-1 bg-green-700 rounded-full mr-2 hidden xl:block"></div>
+                    {{-- Populate with custom alert message --}}
                     <p id='alert-message' class="text-base text-green-700">**ALERT_MESSAGE**</p>
                 </div>
                 <div class="flex justify-end mt-4 md:mt-0 md:pl-4 lg:pl-0">
+                    {{-- Dismiss alert notification --}}
                     <button onclick="alertHandler(null,'alert-success',false);" class="focus:outline-none focus:text-white hover:text-gray-400 text-sm cursor-pointer text-gray-600">Dismiss</button>
                 </div>
             </div>

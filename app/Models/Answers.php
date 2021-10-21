@@ -9,6 +9,7 @@ class Answers extends Model
 {
     use HasFactory;
 
+    // Set fillable attributes.
     protected $fillable = [
         'quiz_id',
         'question_id',

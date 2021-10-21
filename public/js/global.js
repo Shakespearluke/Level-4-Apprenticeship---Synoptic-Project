@@ -1,3 +1,4 @@
+// Handle UI drop downs 
 function dropdownFunction(element,class_name) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
@@ -10,7 +11,7 @@ function dropdownFunction(element,class_name) {
         list.classList.toggle("hidden");
     }
 }
-
+// Hide drop down items
 window.onclick = function (event) {
     if (!event.target.matches(".dropbtn")) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -22,7 +23,7 @@ window.onclick = function (event) {
     }
 };
 
-// Function to pull modals into current view and load with data.
+// Pull tables into current view and load with data.
 function bladeTableHandler(val,blade,table,pass_through){    
     if(val) {
         if(pass_through){
@@ -47,7 +48,7 @@ function bladeTableHandler(val,blade,table,pass_through){
     }
 }
 
-// Function to pull modals into current view and load with data.
+// Pull modals into current view and load with data.
 function bladeModalHandler(val,blade,modal,pass_through){
     if(val) {
         if(pass_through){
@@ -77,7 +78,7 @@ function bladeModalHandler(val,blade,modal,pass_through){
     }
 }
 
-// Modal handler
+// Handle the fading in and out of modals
 function modalHandler(val, modal) {
     if (val) {
         fadeIn(modal);
@@ -117,7 +118,7 @@ function fadeIn(el, display) {
     })();
 } 
 
-// Handler alerts, allow rapid calling of alert based of passed parameters
+// Handle alerts, allow rapid calling of alert based of passed parameters
 function alertHandler(val, alert, display){
     if(display)
         $.ajax({
@@ -129,7 +130,7 @@ function alertHandler(val, alert, display){
                 setTimeout(function () {
                     document.querySelector('#'+alert).style.transform = "translateY(200%)";
                 }, 50);
-                // Wait 5 seconds to auto clear, assign set timeout to variable so this timeout can be cancel if dismiss is pressed. 
+                // Wait 5 seconds to auto clear, assign set timeout to variable so this timeout can be cancelled if dismiss is pressed. 
                 clear_alert = setTimeout(function () {
                     alertHandler(null,alert,false );
                 }, 5000);
@@ -147,6 +148,7 @@ function alertHandler(val, alert, display){
     }
 }
 
+// Update a elements Tailwind styling based on passed element and style.
 function update_element_styling(element, styles, toggle_type){
     if(toggle_type == true | toggle_type == false){
         if(toggle_type == true){
@@ -164,23 +166,26 @@ function update_element_styling(element, styles, toggle_type){
     
 }
 
+// Livewire function calling - Adding new questions.
 function saveQuestion(question, answers){
     window.livewire.emit('add-new-question',question,answers);
 }
-
+// Livewire function calling - Saving edited questions.
 function saveEditedQuestion(question, answers, question_id){
     window.livewire.emit('edit-question',question,answers,question_id);
 }
 
+// Livewire function calling - Saving new answers.
 function saveAnswer(answer, correct){
     window.livewire.emit('add-new-answer',answer,correct);
 }
 
+// Livewire function calling - Saving Editing answers.
 function saveEditedAnswer(answer, correct, answer_id){
     window.livewire.emit('edit-answer',answer,correct,answer_id);
 }
 
-// Function to pull modals into current view and load with data.
+// Pull edit question modal into view and load with data.
 function editQuestion(val,blade,modal,question,answers,question_id){
     if(val) {
         $.ajax({
@@ -203,7 +208,7 @@ function editQuestion(val,blade,modal,question,answers,question_id){
     }
 }
 
-// Function to pull modals into current view and load with data.
+// Pull edit answer modal into view and load with data.
 function editAnswer(val,blade,modal,answer,correct,answer_id){
     if(val) {
         $.ajax({

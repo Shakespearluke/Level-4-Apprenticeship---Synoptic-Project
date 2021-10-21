@@ -1,3 +1,4 @@
+{{-- Edit a question's answer modal. --}}
 <div style="opacity: -0.1; display: none;" class="fixed z-10 inset-0  overflow-hidden transition duration-150 ease-in-out" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="edit_answer">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">  
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"  id="alert_node"></div>        
@@ -5,8 +6,10 @@
             <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-lg transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="xl:w-full border-b border-gray-300 dark:border-gray-700 py-5">
                     <div class="flex items-center w-11/12 mx-auto">
+                        {{-- Load title with answer id --}}
                         <h1 aria-label="profile" class="text-lg text-gray-800 dark:text-gray-100 font-bold">Answer #{{ $answer_id }}</h1>
                     </div>
+                    {{-- Close edit answer modal --}}
                     <a aria-label="close modal" onclick="bladeModalHandler(false,null,'edit_answer')" class="cursor-pointer absolute top-0 right-0 mt-6 mr-6 dark:text-gray-100 text-gray-400 hover: dark:text-gray-100 text-gray-600 transition duration-150 ease-in-out focus:outline-none rounded focus:ring-black">
                         <svg class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" />
@@ -19,6 +22,7 @@
                     <div class="xl:w-full mx-auto xl:mx-0">
                         <div class="mt-5 flex flex-col xl:w-full lg:w-full w-full">
                             <label for="answer" class="pb-2 text-sm font-normal text-gray-800 dark:text-gray-100">Answer</label>
+                            {{-- Prepopulate answer input box with answer. --}}
                             <input aria-label="enter answer" type="text" id="answer" name="answer" class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-cyan-700 text-gray-800 bg-transparent dark:text-gray-100" value='{{ $answer }}' maxlength="50" placeholder="Answer" />
                             <div id="answer_error"></div>
                         </div>
@@ -26,10 +30,12 @@
                     <div class="xl:w-full mx-auto xl:mx-0">
                         <div class="mt-5 flex flex-col xl:w-full lg:w-full w-full">
                             <label for="correct" class="pb-2 text-sm font-normal text-gray-800 dark:text-gray-100">Correct?</label>
+                            {{-- Prepopulate correct checkbox with yes or no. --}}
                             <input aria-label="correct?" type="checkbox" id="correct" name="correct" @if($correct == true) checked @endif class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-cyan-700 text-gray-800 bg-transparent dark:text-gray-100" placeholder="Correct?" />
                         </div>
                     </div>
                 </div>
+                {{-- Footer save form controls. --}}
                 <div class="flex flex-col lg:flex-row p-4 lg:p-8 justify-between items-start lg:items-stretch w-full">
                     <div class="w-full flex flex-col lg:flex-row items-start lg:items-center">
                         <div class="flex items-center border-gray-300">
@@ -45,36 +51,49 @@
 </div>
 
 <script type="text/javascript">
+    // AJAX post request to handle form validation and editing of answers
+    // Set CSRF token
     $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
     
+    // Form submission button click.
     $('#save_answer').on('click', function(e){
         e.preventDefault();
 
+        // Reset form styling.
         update_element_styling('answer','border-gray-300',true)
         update_element_styling('answer','border-red-600',false)
 
+        // Remove any error texts.
         $('#answer_error_p').remove();
         
+        // Setup variables
         var answer = $("input[name=answer]").val();
         var correct = false
         var answer_id = {{ $answer_id }}
         
+        // Check if correct checkbox is checked.
         if($('#correct').prop("checked")){
             correct = true;
         }
+
+        // Check that answer input box isn't left blank.
         if(answer == ''){
+            // Answer input box validation has failed. Notify user.
             $('#answer_error').append("<p class='text-red-600 pt-2' id='answer_error_p'>The answer field is required</p>")
             update_element_styling('answer','border-gray-300',false)
             update_element_styling('answer','border-red-600',true)
         }else{
+            // Check that this is a legitamate edit of an answer
             if({{ $answer_id }} == 0){
+                // Validated succesful save the answer and close modal.
                 saveAnswer(answer,correct);
                 bladeModalHandler(false,null,'add_answer');
             }else{
+                // Validated succesful save the answer and close modal.
                 saveEditedAnswer(answer,correct,answer_id-1);
                 bladeModalHandler(false,null,'edit_answer')
             }

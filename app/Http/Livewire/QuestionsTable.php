@@ -11,7 +11,7 @@ class QuestionsTable extends Component
     public $questions = [];
     protected $listeners = ['add-new-question' => 'add_new_question','edit-question' => 'edit_question'];
 
-    // Add a new question based off the enter question and answers
+    // Add a new question based off the entered question and answers.
     public function add_new_question($question,$answers)
     {     
         $this->questions[] = array("question"=>$question,'answers'=>$answers);

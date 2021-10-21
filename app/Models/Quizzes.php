@@ -10,6 +10,7 @@ class Quizzes extends Model
 {
     use HasFactory;
 
+    // Set fillable attributes.
     protected $fillable = [
         'user_id',
         'title',
@@ -17,6 +18,7 @@ class Quizzes extends Model
         'topic'
     ];
 
+    // Set has many relationship between quizzes and questions.
     public function questions(){
         return $this->hasMany(Questions::class,'quiz_id', 'id');
     }

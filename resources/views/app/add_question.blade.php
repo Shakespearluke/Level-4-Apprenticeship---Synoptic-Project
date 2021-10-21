@@ -1,3 +1,4 @@
+{{-- Add a new question to quiz modal. --}}
 <div style="opacity: -0.1; display: none;" class="fixed z-10 inset-0  overflow-hidden transition duration-150 ease-in-out" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="add_question">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">  
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"  id="alert_node"></div>        
@@ -5,8 +6,9 @@
             <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-lg transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="xl:w-full border-b border-gray-300 dark:border-gray-700 py-5">
                     <div class="flex items-center w-11/12 mx-auto">
-                        <h1 aria-label="profile" class="text-lg text-gray-800 dark:text-gray-100 font-bold">Question #1</h1>
+                        <h1 aria-label="profile" class="text-lg text-gray-800 dark:text-gray-100 font-bold">New Question</h1>
                     </div>
+                    {{-- Close add question modal --}}
                     <a aria-label="close modal" onclick="bladeModalHandler(false,null,'add_question')" class="cursor-pointer absolute top-0 right-0 mt-6 mr-6 dark:text-gray-100 text-gray-400 hover: dark:text-gray-100 text-gray-600 transition duration-150 ease-in-out focus:outline-none rounded focus:ring-black">
                         <svg class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" />
@@ -24,6 +26,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- Include the livewire answers table conponent. --}}
                 @livewire('answers-table')
             </div>
         </div>

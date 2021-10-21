@@ -19,10 +19,6 @@ use App\Http\Controllers\App\QuestionController;
 |
 */
 
-Route::get('/', function () {
-    return view('app/dashboard');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Authentication
@@ -43,6 +39,7 @@ Route::post('/logout',[LogoutController::class, 'logout'])->name('logout');
 
 // Dashboard
 Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
 
 // Dashboard - Quiz Table
 Route::get('/dashboard/table-quizzes', [DashboardController::class, 'get_quizzes_table'])->name('get_quizzes_table');
@@ -81,10 +78,9 @@ Route::post('/quiz/edit/{quiz_id}', [QuizzesController::class, 'store_edited_qui
 // Quiz - View Quiz
 Route::get('/quiz/view/{quiz_id}',[QuizzesController::class, 'view_quiz'])->name('view_quiz');
 
-
 /*
 |-------------------------------------------------------------------------
-| Alerts
+| Alert Routes
 |-------------------------------------------------------------------------
 */
 
