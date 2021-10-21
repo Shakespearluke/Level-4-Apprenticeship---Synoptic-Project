@@ -27,9 +27,9 @@
                     </button>
                     <div class="dropdown-content mt-1 absolute left-0 -ml-12 shadow-md z-10 object-cover hidden w-32">
                         <ul class="bg-white dark:bg-gray-800 shadow rounded py-1">
-                            <li onclick="" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Edit</li>
+                            <a href="{{ route('edit_quiz',$quiz->id)}}"><li onclick="" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Edit</li></a>
                             <li onclick="" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">View</li>
-                            <li onclick="bladeModalHandler(true,'admin/modal-delete-quiz','delete_quiz','{{ $quiz->id }}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Delete</li>
+                            <li onclick="bladeModalHandler(true,'dashboard/modal-delete-quiz','delete_quiz','{{ $quiz->id }}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Delete</li>
                         </ul>
                     </div>
                 </td>

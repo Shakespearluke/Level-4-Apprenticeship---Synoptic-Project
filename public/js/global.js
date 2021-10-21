@@ -56,6 +56,7 @@ function bladeModalHandler(val,blade,modal,pass_through){
                 success: function (data) {
                     $('body').append(data);
                     modalHandler(true,document.querySelector('#'+modal));
+                    window.livewire.rescan();
                 },
                 dataType: 'html'
             });
@@ -65,6 +66,7 @@ function bladeModalHandler(val,blade,modal,pass_through){
                 success: function (data) {
                     $('body').append(data);
                     modalHandler(true,document.querySelector('#'+modal));
+                    window.livewire.rescan();
                 },
                 dataType: 'html'
             });
@@ -142,5 +144,84 @@ function alertHandler(val, alert, display){
         setTimeout(function () {
             $('#alert_node').empty()
         }, 100);
+    }
+}
+
+function update_element_styling(element, styles, toggle_type){
+    if(toggle_type == true | toggle_type == false){
+        if(toggle_type == true){
+            if(!$("#"+element).hasClass(styles)){
+                $("#"+element).addClass(styles);
+            }
+        }else{
+            if($("#"+element).hasClass(styles)){
+                $("#"+element).removeClass(styles);
+            }
+        }
+    }else{
+        $("#"+element).toggleClass(styles);
+    }
+    
+}
+
+function saveQuestion(question, answers){
+    window.livewire.emit('add-new-question',question,answers);
+}
+
+function saveEditedQuestion(question, answers, question_id){
+    window.livewire.emit('edit-question',question,answers,question_id);
+}
+
+function saveAnswer(answer, correct){
+    window.livewire.emit('add-new-answer',answer,correct);
+}
+
+function saveEditedAnswer(answer, correct, answer_id){
+    window.livewire.emit('edit-answer',answer,correct,answer_id);
+}
+
+// Function to pull modals into current view and load with data.
+function editQuestion(val,blade,modal,question,answers,question_id){
+    if(val) {
+        $.ajax({
+            url: blade+'/',
+            data:{
+                question:question,
+                answers:answers,
+                question_id:question_id,
+            },
+            success: function (data) {
+                $('body').append(data);
+                modalHandler(true,document.querySelector('#'+modal));
+                window.livewire.rescan();
+            },
+            dataType: 'html'
+        });
+    }else{
+        modalHandler(false,document.querySelector('#'+modal));
+        document.querySelector('#'+modal).remove();
+    }
+}
+
+// Function to pull modals into current view and load with data.
+function editAnswer(val,blade,modal,answer,correct,answer_id){
+    if(val) {
+        $.ajax({
+            url: blade+'/',
+            data:{
+                answer:answer,
+                correct:correct,
+                answer_id:answer_id,
+            },
+            success: function (data) {
+                $('body').append(data);
+                modalHandler(true,document.querySelector('#'+modal));
+                window.livewire.rescan();
+            },
+            dataType: 'html'
+        });
+    }else{
+        modalHandler(false,document.querySelector('#'+modal));
+        document.querySelector('#'+modal).remove();
     }
 }

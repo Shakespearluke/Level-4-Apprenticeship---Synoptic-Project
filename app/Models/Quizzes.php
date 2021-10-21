@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Questions;
 
 class Quizzes extends Model
 {
@@ -16,7 +17,7 @@ class Quizzes extends Model
         'topic'
     ];
 
-    public function questions($id){
-        return Questions::where('quiz_id', '=', $id)->get();
+    public function questions(){
+        return $this->hasMany(Questions::class,'quiz_id', 'id');
     }
 }
