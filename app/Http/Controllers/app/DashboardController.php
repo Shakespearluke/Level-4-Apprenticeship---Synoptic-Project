@@ -18,6 +18,7 @@ class DashboardController extends Controller
     // First check that this user is logged in.
     public function __construct(){
         $this->middleware(['auth']);
+        $this->middleware(['role:3']);
     }
 
     public function index(){

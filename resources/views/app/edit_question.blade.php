@@ -23,7 +23,7 @@
                         <div class="mt-5 flex flex-col xl:w-full lg:w-full w-full">
                             <label for="question" class="pb-2 text-sm font-normal text-gray-800 dark:text-gray-100">Question</label>
                             {{-- Prepopulate question input box with question. --}}
-                            <input aria-label="enter question" type="text" id="question" name="question" class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-cyan-700 text-gray-800 bg-transparent dark:text-gray-100" maxlength="100" value="{{ $question }}" placeholder="Question" />
+                            <input aria-label="enter question" type="text" id="question" name="question" class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-custom-hover text-gray-800 bg-transparent dark:text-gray-100" maxlength="100" value="{{ $question }}" placeholder="Question" />
                             <div id="question_error" name="question_error"></div>
                         </div>
                     </div>

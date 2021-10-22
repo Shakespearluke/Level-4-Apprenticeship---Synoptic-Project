@@ -76,7 +76,7 @@ Route::get('/quiz/edit/{quiz_id}', [QuizzesController::class, 'edit_quiz'])->nam
 Route::post('/quiz/edit/{quiz_id}', [QuizzesController::class, 'store_edited_quiz']);
 
 // Quiz - View Quiz
-Route::get('/quiz/view/{quiz_id}',[QuizzesController::class, 'view_quiz'])->name('view_quiz');
+Route::get('/quiz/view/{quiz_id}',[QuizzesController::class, 'view_quiz'])->withoutMiddleware(['role:1'])->name('view_quiz');
 
 /*
 |-------------------------------------------------------------------------
@@ -92,4 +92,3 @@ Route::get('alert-success', function(){
 Route::get('alert-error', function(){
     return view('alerts.error');
 });
-

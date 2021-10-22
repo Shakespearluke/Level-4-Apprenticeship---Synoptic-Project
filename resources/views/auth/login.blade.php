@@ -46,7 +46,7 @@
             @endif
             {{-- Submit form. --}}
             <div>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">Login</button>
+                <button type="submit" class="bg-custom hover:bg-custom-hover text-white px-4 py-3 rounded font-medium w-full">Login</button>
             </div>
         </form>
     </div>

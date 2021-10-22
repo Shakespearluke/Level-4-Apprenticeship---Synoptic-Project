@@ -19,7 +19,7 @@ class CreateQuizzesTable extends Migration
             $table->string('description');
             $table->string('topic');
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

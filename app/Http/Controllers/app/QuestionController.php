@@ -16,6 +16,7 @@ class QuestionController extends Controller
     // First check that this user is logged in.
     public function __construct(){
         $this->middleware(['auth']);
+        $this->middleware(['role:1']);
     }
 
     // Return the add question modal uisng AJAX get request.

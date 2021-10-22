@@ -20,6 +20,7 @@ class QuizzesController extends Controller
     // First check that this user is logged in.
     public function __construct(){
         $this->middleware(['auth']);
+        $this->middleware(['role:1']);
     }
 
     // Load form to create a quiz.
@@ -60,6 +61,10 @@ class QuizzesController extends Controller
             'title' => 'required|unique:Quizzes|max:50',
             'description' => 'required|max:255',
             'topic' => 'required|max:50',
+            "questions"  => "json|min:1",
+        ],
+        [
+            'questions.json' => 'You must have at least one question'
         ]);
 
         // Create quiz in quizzes table 
@@ -93,12 +98,16 @@ class QuizzesController extends Controller
 
     // Validate the edited quiz and update the data in the database.
     public function store_edited_quiz($quiz_id, Request $request){
-        
+
         // Validate request data to ensure fields not yet checked are valid
         $this->validate($request,[
             'title' => 'required|max:50',
             'description' => 'required|max:255',
             'topic' => 'required|max:50',
+            "questions"  => "json|min:1",
+        ],
+        [
+            'questions.json' => 'You must have at least one question'
         ]);
 
         // Update quiz in quizzes table 
@@ -187,6 +196,15 @@ class QuizzesController extends Controller
                 ]
             );
         }
+    }
+
+    // Load view to allow users to view quiz and it's quesitons.
+    public function view_quiz($quiz_id){
+        $quiz = Quizzes::find($quiz_id);
+
+        return view('app.view_quiz',[
+            'quiz' => $quiz,
+        ]);
     }
 
 }

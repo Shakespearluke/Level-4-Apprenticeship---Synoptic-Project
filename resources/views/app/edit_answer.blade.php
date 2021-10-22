@@ -23,7 +23,7 @@
                         <div class="mt-5 flex flex-col xl:w-full lg:w-full w-full">
                             <label for="answer" class="pb-2 text-sm font-normal text-gray-800 dark:text-gray-100">Answer</label>
                             {{-- Prepopulate answer input box with answer. --}}
-                            <input aria-label="enter answer" type="text" id="answer" name="answer" class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-cyan-700 text-gray-800 bg-transparent dark:text-gray-100" value='{{ $answer }}' maxlength="50" placeholder="Answer" />
+                            <input aria-label="enter answer" type="text" id="answer" name="answer" class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-custom-hover text-gray-800 bg-transparent dark:text-gray-100" value='{{ $answer }}' maxlength="50" placeholder="Answer" />
                             <div id="answer_error"></div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <div class="mt-5 flex flex-col xl:w-full lg:w-full w-full">
                             <label for="correct" class="pb-2 text-sm font-normal text-gray-800 dark:text-gray-100">Correct?</label>
                             {{-- Prepopulate correct checkbox with yes or no. --}}
-                            <input aria-label="correct?" type="checkbox" id="correct" name="correct" @if($correct == true) checked @endif class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-cyan-700 text-gray-800 bg-transparent dark:text-gray-100" placeholder="Correct?" />
+                            <input aria-label="correct?" type="checkbox" id="correct" name="correct" @if($correct == true) checked @endif class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-custom-hover text-gray-800 bg-transparent dark:text-gray-100" placeholder="Correct?" />
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="flex flex-col lg:flex-row p-4 lg:p-8 justify-between items-start lg:items-stretch w-full">
                     <div class="w-full flex flex-col lg:flex-row items-start lg:items-center">
                         <div class="flex items-center border-gray-300">
-                            <button role="button" id="save_answer" aria-label="add table" class="text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600 border border-transparent bg-cyan-600 transition duration-150 ease-in-out hover:bg-cyan-700 w-16 h-8 rounded flex items-center justify-center">
+                            <button role="button" id="save_answer" aria-label="add table" class="text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom border border-transparent bg-custom-hover transition duration-150 ease-in-out hover:bg-custom-hover w-16 h-8 rounded flex items-center justify-center">
                                 Save
                             </button>
                         </div>

@@ -36,8 +36,8 @@
                         <div class="dropdown-content mt-1 absolute left-0 -ml-12 shadow-md z-10 object-cover hidden w-32">
                             <ul class="bg-white dark:bg-gray-800 shadow rounded py-1">
                                 {{-- Edit and delete a question. --}}
-                                <li onclick="editQuestion(true,'modal-edit-question','edit_question','{{$question['question']}}','{{json_encode($question['answers'])}}','{{$key+1}}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Edit</li>
-                                <li wire:click="delete_question({{$key}})" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Delete</li>
+                                <li onclick="editQuestion(true,'modal-edit-question','edit_question','{{$question['question']}}','{{json_encode($question['answers'])}}','{{$key+1}}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-custom hover:text-white px-3 font-normal">Edit</li>
+                                <li wire:click="delete_question({{$key}})" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-custom hover:text-white px-3 font-normal">Delete</li>
                             </ul>
                         </div>
                     </td>
@@ -45,13 +45,29 @@
             @endforeach
         </tbody>
     </table>
+    {{-- Form validation message --}}
+    <div class="w-11/12 mx-auto">
+        <div class="xl:w-full mx-auto xl:mx-0">
+            <div class="mt-1 ml-0 flex flex-col xl:w-full lg:w-full w-full">
+                @error('questions')
+                <div class="text-red-500 mt-2 text-sm">
+                    {{ $message }}
+                </div>
+                @enderror 
+            </div>
+        </div>
+    </div>    
     {{-- Hidden form element to contain question data. --}}
-    {!! Form::hidden('questions', json_encode($this->questions)) !!}
+    @if(count($questions) == 0)
+        {!! Form::hidden('questions', '') !!}
+    @else
+        {!! Form::hidden('questions', json_encode($this->questions)) !!}
+    @endif
     {{-- Footer save & add form controls. --}}
     <div class="flex flex-row p-4 lg:p-8 justify-between items-start lg:items-stretch w-full">
         <div class="w-full flex flex-col lg:flex-row items-start lg:items-center">
             <div class="flex items-center border-gray-300">
-                <button role="button" id="add_user" aria-label="add table" class="text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600 border border-transparent bg-cyan-600 transition duration-150 ease-in-out hover:bg-cyan-700 w-16 h-8 rounded flex items-center justify-center">
+                <button role="button" id="add_user" aria-label="add table" class="text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom border border-transparent bg-custom transition duration-150 ease-in-out hover:bg-custom-hover w-16 h-8 rounded flex items-center justify-center">
                     Save
                 </button>
             </div>
@@ -59,7 +75,7 @@
         <div class="w-full lg:w-2/3 flex flex-row items-start lg:items-center justify-end">
             <div class="lg:ml-2 flex items-center border-gray-300">
                 {{-- AJAX load the add question form. --}}
-                <a onclick="bladeModalHandler(true,'modal-add-question','add_question')" role="button" id="add_user" aria-label="add table" class="text-white ml-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600 border border-transparent bg-cyan-600 transition duration-150 ease-in-out hover:bg-cyan-700 w-8 h-8 rounded flex items-center justify-center">
+                <a onclick="bladeModalHandler(true,'modal-add-question','add_question')" role="button" id="add_user" aria-label="add table" class="text-white ml-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom border border-transparent bg-custom transition duration-150 ease-in-out hover:bg-custom-hover w-8 h-8 rounded flex items-center justify-center">
                     <svg class="icon icon-tabler icon-tabler-plus" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" />
                         <line x1="12" y1="5" x2="12" y2="19" />

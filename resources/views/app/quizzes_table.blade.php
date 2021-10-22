@@ -22,7 +22,7 @@
                 <td class="text-sm whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">{{$quiz->created_at->diffforhumans()}}</td>
                 {{-- More dropdown for editing, viewing and deleting. --}}
                 <td class="relative wrapper">
-                    <button onclick="dropdownFunction(this)" aria-label="dropdown" role="button" class="dropbtn text-gray-500 rounded cursor-pointer border border-transparent  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400">
+                    <button onclick="dropdownFunction(this)" aria-label="dropdown" role="button" class="dropbtn text-gray-500 rounded cursor-pointer border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400">
                         <svg onclick="dropdownFunction(this)" class="icon icon-tabler icon-tabler-dots-vertical dropbtn" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" />
                             <circle cx="12" cy="12" r="1" />
@@ -33,9 +33,13 @@
                     <div class="dropdown-content mt-1 absolute left-0 -ml-12 shadow-md z-10 object-cover hidden w-32">
                         <ul class="bg-white dark:bg-gray-800 shadow rounded py-1">
                             {{-- Edit, view and delete a quiz. --}}
-                            <a href="{{ route('edit_quiz',$quiz->id)}}"><li onclick="" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Edit</li></a>
-                            <li onclick="" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">View</li>
-                            <li onclick="bladeModalHandler(true,'dashboard/modal-delete-quiz','delete_quiz','{{ $quiz->id }}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Delete</li>
+                            @if (Auth::user()->access_level == 1)
+                                <a href="{{ route('edit_quiz',$quiz->id)}}"><li onclick="" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-custom hover:text-white px-3 font-normal">Edit</li></a>
+                            @endif
+                            <a href="{{ route('view_quiz',$quiz->id)}}"><li onclick="" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-custom hover:text-white px-3 font-normal">View</li></a>
+                            @if (Auth::user()->access_level == 1)
+                                <li onclick="bladeModalHandler(true,'dashboard/modal-delete-quiz','delete_quiz','{{ $quiz->id }}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-custom hover:text-white px-3 font-normal">Delete</li>
+                            @endif
                         </ul>
                     </div>
                 </td>

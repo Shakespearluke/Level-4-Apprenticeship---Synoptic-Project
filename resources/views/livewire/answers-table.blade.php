@@ -36,8 +36,8 @@
                             <div class="dropdown-content mt-1 absolute left-0 -ml-12 shadow-md z-10 object-cover hidden w-32">
                                 <ul class="bg-white dark:bg-gray-800 shadow rounded py-1">
                                     {{-- Edit and delete a answer. --}}
-                                    <li onclick="editAnswer(true,'modal-edit-answer','edit_answer','{{$answer['answer']}}','{{($answer['correct'])}}','{{$key+1}}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Edit</li>
-                                    <li wire:click="delete_answer({{$key}})" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-cyan-600 hover:text-white px-3 font-normal">Delete</li>
+                                    <li onclick="editAnswer(true,'modal-edit-answer','edit_answer','{{$answer['answer']}}','{{($answer['correct'])}}','{{$key+1}}')" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-custom hover:text-white px-3 font-normal">Edit</li>
+                                    <li wire:click="delete_answer({{$key}})" class="cursor-pointer text-gray-600 dark:text-gray-400 text-sm leading-3 tracking-normal py-3 hover:bg-custom hover:text-white px-3 font-normal">Delete</li>
                                 </ul>
                             </div>
                         </td>
@@ -59,7 +59,7 @@
     <div class="flex flex-col lg:flex-row p-4 lg:p-8 justify-between items-start lg:items-stretch w-full">
         <div class="w-full flex flex-col lg:flex-row items-start lg:items-center">
             <div class="flex items-center border-gray-300">
-                <button role="button" id="save_question" aria-label="add table" class="text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600 border border-transparent bg-cyan-600 transition duration-150 ease-in-out hover:bg-cyan-700 w-16 h-8 rounded flex items-center justify-center">
+                <button role="button" id="save_question" aria-label="add table" class="text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom border border-transparent bg-custom transition duration-150 ease-in-out hover:bg-custom-hover w-16 h-8 rounded flex items-center justify-center">
                     Save
                 </button>
             </div>
@@ -67,7 +67,7 @@
         <div class="w-full lg:w-2/3 flex flex-col lg:flex-row items-start lg:items-center justify-end">
             <div class="lg:ml-2 flex items-center border-gray-300">
                 {{-- AJAX load the add answer form. --}}
-                <button onclick="bladeModalHandler(true,'modal-add-answer','add_answer')" role="button" id="add_user" aria-label="add table" class="text-white ml-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600 border border-transparent bg-cyan-600 transition duration-150 ease-in-out hover:bg-cyan-700 w-8 h-8 rounded flex items-center justify-center">
+                <button onclick="bladeModalHandler(true,'modal-add-answer','add_answer')" role="button" id="add_user" aria-label="add table" class="text-white ml-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom border border-transparent bg-custom transition duration-150 ease-in-out hover:bg-custom-hover w-8 h-8 rounded flex items-center justify-center">
                     <svg class="icon icon-tabler icon-tabler-plus" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" />
                         <line x1="12" y1="5" x2="12" y2="19" />
@@ -77,7 +77,7 @@
             </div>
         </div>
     {{-- Secret Div containing answer data to help with pushing to Jquery. --}}
-    <div style="display:none;" id="answers" data-answers="{{ json_encode($this->answers) }}"></div>
+    <div style="display:none;" id="answers" >{{ json_encode($this->answers) }}</div>
 </div>
 
 <script type="text/javascript">
@@ -100,12 +100,13 @@
         update_element_styling('question','border-red-600',false)
 
         // Remove any error texts.
-        $('#question_error_p').remove();
-        
+        $('p').remove();
         // Setup variables
         var question = $("input[name=question]").val();
-        var answers = $('#answers').data('answers');
-        var question_id = {{ $question_id }};
+        var answers = jQuery.parseJSON($("#answers").html());
+        var question_id = '{{ $question_id }}' ;
+        var validate = 0;
+        var correct = 0;
 
         // Check that question input box isn't left blank.
         if(question == ''){
@@ -113,7 +114,27 @@
             $('#question_error').append("<p class='text-red-600 pt-2' id='question_error_p'>The question field is required</p>")
             update_element_styling('question','border-gray-300',false)
             update_element_styling('question','border-red-600',true)
+            validate++;
+        }
+
+        // Check that there is at least one answer
+        if(answers.length == 0){
+            $('#answers_error').append("<p class='text-red-600 pt-2' id='question_error_p'>You must have at least one answer</p>")
+            validate++;
         }else{
+            // Check there is at least one answer that is correct
+            $.each( answers, function( key, answer ) {
+                if(answer['correct'] == true){
+                    correct++;
+                };
+            });
+            if(correct == 0){
+                $('#answers_error').append("<p class='text-red-600 pt-2' id='question_error_p'>At least one answer must be correct</p>")
+                validate++
+            }
+        }
+
+        if(validate == 0){
             // Check if this edit of an answer or a new answer
             if({{ $question_id }} == 0){
                 // Validated succesful save the answer and close modal.

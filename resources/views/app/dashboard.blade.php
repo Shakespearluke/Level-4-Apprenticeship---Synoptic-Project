@@ -11,8 +11,9 @@
         <div class="w-full lg:w-2/3 flex flex-col lg:flex-row items-start lg:items-center justify-end">
             <div class="lg:ml-2 flex items-center border-gray-300">
                 {{-- Open the quiz creation form on click of A attribute. --}}
+                @if (Auth::user()->access_level == 1)
                 <a href="{{ route('create_quiz')}}">
-                    <button role="button" id="add_user" aria-label="add table" class="text-white ml-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600 border border-transparent bg-cyan-600 transition duration-150 ease-in-out hover:bg-cyan-700 w-8 h-8 rounded flex items-center justify-center">
+                    <button role="button" id="add_user" aria-label="add table" class="text-white ml-4 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom border border-transparent bg-custom transition duration-150 ease-in-out hover:bg-custom-hover w-8 h-8 rounded flex items-center justify-center">
                         <svg class="icon icon-tabler icon-tabler-plus" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" />
                             <line x1="12" y1="5" x2="12" y2="19" />
@@ -20,6 +21,7 @@
                         </svg>
                     </button>
                 </a>
+                @endif
             </div>
         </div>
     </div>
