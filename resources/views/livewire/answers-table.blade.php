@@ -118,8 +118,8 @@
         }
 
         // Check that there is at least one answer
-        if(answers.length == 0){
-            $('#answers_error').append("<p class='text-red-600 pt-2' id='question_error_p'>You must have at least one answer</p>")
+        if(answers.length < 3){
+            $('#answers_error').append("<p class='text-red-600 pt-2' id='question_error_p'>You must have at least three answers</p>")
             validate++;
         }else{
             // Check there is at least one answer that is correct
@@ -132,6 +132,12 @@
                 $('#answers_error').append("<p class='text-red-600 pt-2' id='question_error_p'>At least one answer must be correct</p>")
                 validate++
             }
+        }
+
+        // Check that there is only up-to 5 answers
+        if(answers.length > 5){
+            $('#answers_error').append("<p class='text-red-600 pt-2' id='question_error_p'>You can only have up-to 5 answers</p>")
+            validate++;
         }
 
         if(validate == 0){

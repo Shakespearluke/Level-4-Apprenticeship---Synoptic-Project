@@ -25,7 +25,7 @@
                 <img src="{{ asset(config('company.logo')) }}" class=" object-contain h-8"/>
             </li>
             <li>
-                <a class="p-3">{{ config('company.name') }}</a>
+                <a href="/" class="p-3">{{ config('company.name') }}</a>
             </li>
         </ul>
         <ul class="flex items-center">
@@ -33,7 +33,7 @@
             @auth
                 {{-- User logged in - Display the users name and logout button. --}}
                 <li>
-                    <a href="" class="p-3">{{ auth()->user()->name }} </a>
+                    <a class="p-3">{{ auth()->user()->name }} </a>
                 </li>
                 <li> 
                     <form action="{{ route('logout') }}" method="post" type="submit" class="inline px-3">
